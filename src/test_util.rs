@@ -120,7 +120,7 @@ impl Context {
             {
                 let cell_dep = CellDep::new_builder()
                     .out_point(OutPoint::new(tx.hash(), idx as u32))
-                    .dep_type(DepType::Code.into())
+                    .dep_type(DepType::Code)
                     .build();
                 ctx.add_cell_dep(cell_dep, output, data.raw_data(), Some(block_hash.clone()));
             }
@@ -137,7 +137,7 @@ impl Context {
                     let group_out_point = ctx.deploy_cell(out_points.as_bytes());
                     let cell_dep = CellDep::new_builder()
                         .out_point(group_out_point)
-                        .dep_type(DepType::DepGroup.into())
+                        .dep_type(DepType::DepGroup)
                         .build();
                     let script_id = ScriptId::new_data1(data_hash);
                     ctx.add_cell_dep_map(script_id, cell_dep);
@@ -195,7 +195,7 @@ impl Context {
                 .as_u64()
         });
         let output = CellOutput::new_builder()
-            .capacity(capacity.pack())
+            .capacity(capacity)
             .lock(lock_script)
             .build();
         self.add_live_cell(input, output, Bytes::default(), None)
@@ -207,7 +207,7 @@ impl Context {
         let out_point = random_out_point();
         let cell_dep = CellDep::new_builder()
             .out_point(out_point.clone())
-            .dep_type(DepType::Code.into())
+            .dep_type(DepType::Code)
             .build();
         let output = CellOutput::default();
         self.add_cell_dep(cell_dep, output, data, None);
@@ -365,7 +365,7 @@ impl Context {
                 ckb2023: CKB2023::new_dev_default(),
             })
             .build();
-        let tip = HeaderBuilder::default().number(0.pack()).build();
+        let tip = HeaderBuilder::default().number(0).build();
         let tx_verify_env = TxVerifyEnv::new_submit(&tip);
 
         let mut verifier = TransactionScriptsVerifier::new(

@@ -78,7 +78,7 @@ impl ScriptHandler for Secp256k1Blake160SighashAllScriptHandler {
                     h256!("0x71a7ba8fc96349fea0ed3a5c47992e3b4084b031a42264a018e0072e8172e46c")
                         .pack(),
                 )
-                .index(0u32.pack())
+                .index(0u32)
                 .build()
         } else if network.network_type == NetworkType::Testnet {
             OutPoint::new_builder()
@@ -86,7 +86,7 @@ impl ScriptHandler for Secp256k1Blake160SighashAllScriptHandler {
                     h256!("0xf8de3bb47d055cdf460d93a2a6e1b05f7432f9777c8c474abf4eec1d4aee5d37")
                         .pack(),
                 )
-                .index(0u32.pack())
+                .index(0u32)
                 .build()
         } else {
             return Err(TxBuilderError::UnsupportedNetworkType(network.network_type));
@@ -94,7 +94,7 @@ impl ScriptHandler for Secp256k1Blake160SighashAllScriptHandler {
 
         let cell_dep = CellDep::new_builder()
             .out_point(out_point)
-            .dep_type(DepType::DepGroup.into())
+            .dep_type(DepType::DepGroup)
             .build();
         self.cell_deps.push(cell_dep);
         Ok(())

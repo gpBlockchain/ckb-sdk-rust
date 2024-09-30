@@ -248,7 +248,7 @@ impl From<&MultisigConfig> for Script {
     fn from(value: &MultisigConfig) -> Self {
         Script::new_builder()
             .code_hash(MULTISIG_TYPE_HASH.pack())
-            .hash_type(ScriptHashType::Type.into())
+            .hash_type(ScriptHashType::Type)
             .args(Bytes::from(value.hash160().as_bytes().to_vec()).pack())
             .build()
     }
