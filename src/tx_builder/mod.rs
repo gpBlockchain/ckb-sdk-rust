@@ -534,7 +534,7 @@ impl CapacityBalancer {
             if original_capacity >= base_change_occupied_capacity + extra_min_fee + extra_fee {
                 let output = output
                     .as_builder()
-                    .capacity((original_capacity - extra_fee))
+                    .capacity(original_capacity - extra_fee)
                     .build();
                 let mut outputs: Vec<_> = tx.outputs().into_iter().collect();
                 outputs[idx] = output;
@@ -822,7 +822,7 @@ fn rebalance_tx_capacity(
                             base_change_output
                                 .clone()
                                 .as_builder()
-                                .capacity((delta - extra_min_fee))
+                                .capacity(delta - extra_min_fee)
                                 .build(),
                         );
                         need_more_capacity = 0;
