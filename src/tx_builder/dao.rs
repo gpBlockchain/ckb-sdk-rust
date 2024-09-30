@@ -59,7 +59,7 @@ impl TxBuilder for DaoDepositBuilder {
         }
         let dao_type_script = Script::new_builder()
             .code_hash(DAO_TYPE_HASH.pack())
-            .hash_type(ScriptHashType::Type.into())
+            .hash_type(ScriptHashType::Type)
             .build();
         let dao_cell_dep = cell_dep_resolver
             .resolve(&dao_type_script)
@@ -69,7 +69,7 @@ impl TxBuilder for DaoDepositBuilder {
         let mut outputs_data = Vec::new();
         for receiver in &self.receivers {
             let output = CellOutput::new_builder()
-                .capacity(receiver.capacity.pack())
+                .capacity(receiver.capacity)
                 .lock(receiver.lock_script.clone())
                 .type_(Some(dao_type_script.clone()).pack())
                 .build();
@@ -136,7 +136,7 @@ impl TxBuilder for DaoPrepareBuilder {
 
         let dao_type_script = Script::new_builder()
             .code_hash(DAO_TYPE_HASH.pack())
-            .hash_type(ScriptHashType::Type.into())
+            .hash_type(ScriptHashType::Type)
             .build();
         let dao_cell_dep = cell_dep_resolver
             .resolve(&dao_type_script)
@@ -255,7 +255,7 @@ impl TxBuilder for DaoWithdrawBuilder {
 
         let dao_type_script = Script::new_builder()
             .code_hash(DAO_TYPE_HASH.pack())
-            .hash_type(ScriptHashType::Type.into())
+            .hash_type(ScriptHashType::Type)
             .build();
         let dao_cell_dep = cell_dep_resolver
             .resolve(&dao_type_script)
@@ -385,7 +385,7 @@ impl TxBuilder for DaoWithdrawBuilder {
                 let final_capacity = std::cmp::max(occupied_capacity, capacity);
                 let output = tmp_output
                     .as_builder()
-                    .capacity(final_capacity.pack())
+                    .capacity(final_capacity)
                     .build();
                 (vec![output], vec![Bytes::new().pack()])
             }
